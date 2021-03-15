@@ -11,7 +11,7 @@ export interface UseSuperclusterArgument<P, C> {
   options?: Supercluster.Options<P, C>;
 }
 
-const useSupercluster = <
+let useSupercluster = <
   P extends GeoJsonProperties = Supercluster.AnyProps,
   C extends GeoJsonProperties = Supercluster.AnyProps
 >({
@@ -20,12 +20,12 @@ const useSupercluster = <
   zoom,
   options
 }: UseSuperclusterArgument<P, C>) => {
-  const superclusterRef = useRef<Supercluster<P, C>>();
-  const pointsRef = useRef<Array<Supercluster.PointFeature<P>>>();
-  const [clusters, setClusters] = useState<
+  let superclusterRef = useRef<Supercluster<P, C>>();
+  let pointsRef = useRef<Array<Supercluster.PointFeature<P>>>();
+  let [clusters, setClusters] = useState<
     Array<Supercluster.ClusterFeature<C> | Supercluster.PointFeature<P>>
   >([]);
-  const zoomInt = Math.round(zoom);
+  let zoomInt = Math.round(zoom);
 
   useDeepCompareEffectNoCheck(() => {
     if (!superclusterRef.current || !dequal(pointsRef.current, points)) {
